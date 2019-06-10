@@ -75,4 +75,21 @@ class Factory extends ViewFactory
     {
         return new DbView($this, $view, $model, $data, $this->contentField);
     }
+    
+    /**
+     * Determine if a given view exists.
+     *
+     * @param  string  $view
+     * @return bool
+     */
+    public function exists($view)
+    {
+        try {
+            $this->finder->find($view);
+        } catch (ModelNotFoundException $e) {
+            return false;
+        }
+
+        return true;
+    }
 }

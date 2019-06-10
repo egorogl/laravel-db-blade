@@ -1,5 +1,5 @@
 {
-    "name": "kiroushi/laravel-db-blade",
+    "name": "egorogl/laravel-db-blade",
     "description": "Render Blade templates from Eloquent Model Fields",
     "keywords": [
         "laravel",
