@@ -2,6 +2,7 @@
 
 namespace Kiroushi\DbBlade;
 
+use App\Utility\CurrentSite;
 use Illuminate\View\FileViewFinder;
 
 class DbViewFinder extends FileViewFinder
@@ -37,7 +38,9 @@ class DbViewFinder extends FileViewFinder
      */
     public function find($name)
     {
+        $site = app(CurrentSite::class);
+
         // To do: expose this callback.
-        return ($this->modelName)::where($this->nameField, $name)->firstOrFail();
+        return ($this->modelName)::where($this->nameField, "{$site->id}.{$name}")->firstOrFail();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Kiroushi\DbBlade;
 
+use App\Utility\CurrentSite;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Contracts\Events\Dispatcher as Dispatcher;
