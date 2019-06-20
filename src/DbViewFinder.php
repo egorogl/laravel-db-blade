@@ -39,8 +39,9 @@ class DbViewFinder extends FileViewFinder
     public function find($name)
     {
         $site = app(CurrentSite::class);
+        $city = app(CurrentCity::class);
 
-        // To do: expose this callback.
-        return ($this->modelName)::where($this->nameField, "{$site->id}.{$name}")->firstOrFail();
+        return ($this->modelName)::where($this->nameField, "{$site->id}.{$city->trans}.{$name}")->first() ??
+            ($this->modelName)::where($this->nameField, "{$site->id}.{$name}")->firstOrFail();
     }
 }
