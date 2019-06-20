@@ -3,6 +3,7 @@
 namespace Kiroushi\DbBlade;
 
 use App\Utility\CurrentSite;
+use App\Utility\CurrentCity;
 use Illuminate\View\FileViewFinder;
 
 class DbViewFinder extends FileViewFinder
