@@ -2,6 +2,7 @@
 
 namespace Kiroushi\DbBlade;
 
+use App\PartialViewModel;
 use App\Utility\CurrentSite;
 use App\Utility\CurrentCity;
 use Illuminate\View\FileViewFinder;
@@ -43,6 +44,7 @@ class DbViewFinder extends FileViewFinder
         $city = app(CurrentCity::class);
 
         return ($this->modelName)::where($this->nameField, "{$site->id}.{$city->trans}.{$name}")->first() ??
-            ($this->modelName)::where($this->nameField, "{$site->id}.{$name}")->firstOrFail();
+            ($this->modelName)::where($this->nameField, "{$site->id}.{$name}")->first() ??
+            PartialViewModel::where($this->nameField, "{$site->id}.{$name}")->firstOrFail();
     }
 }
