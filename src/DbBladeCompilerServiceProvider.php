@@ -52,7 +52,7 @@ class DbBladeCompilerServiceProvider extends ServiceProvider
 
         $this->registerDbViewFinder();
 
-        $this->app->bind(DbBladeCompiler::class, function ($app) {
+        $this->app->singleton(DbBladeCompiler::class, function ($app) {
             $cachePath = storage_path('app/db-blade/cache/views');
 
             return new DbBladeCompiler($app['files'], $cachePath);
