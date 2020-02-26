@@ -5,6 +5,7 @@ namespace Kiroushi\DbBlade;
 use App\PartialViewModel;
 use App\Utility\CurrentSite;
 use App\Utility\CurrentCity;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\View\FileViewFinder;
 
 class DbViewFinder extends FileViewFinder
@@ -43,8 +44,18 @@ class DbViewFinder extends FileViewFinder
         $site = app(CurrentSite::class);
         $city = app(CurrentCity::class);
 
-        return ($this->modelName)::where($this->nameField, "{$site->id}.{$city->trans}.{$name}")->first() ??
-            ($this->modelName)::where($this->nameField, "{$site->id}.{$name}")->first() ??
-            PartialViewModel::where($this->nameField, "{$site->id}.{$name}")->firstOrFail();
+        $page = ($this->modelName)::where($this->nameField, "{$site->id}.{$city->trans}.{$name}")->first();
+
+        if (!$page)
+        {
+            $page = ($this->modelName)::where($this->nameField, "{$site->id}.{$name}")->first();
+        }
+
+        if ($page && $page->enabled)
+        {
+            return $page;
+        }
+
+        return PartialViewModel::where($this->nameField, "{$site->id}.{$name}")->firstOrFail();
     }
 }
