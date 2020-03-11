@@ -44,7 +44,7 @@ class DbViewFinder extends FileViewFinder
         $site = app(CurrentSite::class);
         $city = app(CurrentCity::class);
 
-        $page = ($this->modelName)::where($this->nameField, "{$site->id}.{$city->trans}.{$name}")->first();
+        $page = ($this->modelName)::where($this->nameField, "{$site->id}.{$city->url()}.{$name}")->first();
 
         if (!$page)
         {
